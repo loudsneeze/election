@@ -25,5 +25,18 @@
 #' name_of_your_data_frame <- compliance_data(data.frame)
 #'
 #' @export
-#'
-#'
+
+compliance_data <- function(x, log_level= futile.logger::WARN, log_appender= "console", plot= FALSE)
+{
+
+
+
+
+
+
+
+
+
+
+
+}
