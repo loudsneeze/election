@@ -68,6 +68,10 @@ compliance_data <- function(x, log_level= futile.logger::WARN, log_appender= "co
 
   #Statistical test using assertr
 
+  #plot argument allows the user to have a look at the data
+
+  plot <- plot(x)
+
 
   column_names= c("Reference Number", "Attachments", "Admin/ secretarial", "Managers/ senior officials", "Directors/ chief executives", "Associate Professional", "Professional", "Other", "Other (please specify)", "Total time taken to complete Hours", "Total time taken to complete Mins", "External Costs Y", "External Costs False", "Accountant/ Bookkeeper", "Other", "Other (please specify)", "Accountant/ Bookkeeper £", "Accountant/ Bookkeeper p", "Other £", "Other p")
   colnames(x) <- column_names
