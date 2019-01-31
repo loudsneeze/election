@@ -59,28 +59,28 @@ compliance_data <- function(x, log_level= futile.logger::WARN, log_appender= "co
   }
 
   futile.logger::flog.debug("Checking input dataframe has the right number of columns")
-  if (length(colnames(x)==20))
+  if (length(colnames(x))>20)
   {
     futile.logger::flog.error("The input dataframe should have 20 columns")
   }
 
   futile.logger::flog.info("...passed")
 
-  #Statistical test using assertr
+  #Statistical test using assertr, currently not implmented
 
   #plot argument allows the user to have a look at the data
 
-  plot <- plot(x)
-
+  if (plot == TRUE) {
+    plot(x[, 2])
+  }
 
   column_names= c("Reference Number", "Attachments", "Admin/ secretarial", "Managers/ senior officials", "Directors/ chief executives", "Associate Professional", "Professional", "Other", "Other (please specify)", "Total time taken to complete Hours", "Total time taken to complete Mins", "External Costs Y", "External Costs False", "Accountant/ Bookkeeper", "Other", "Other (please specify)", "Accountant/ Bookkeeper £", "Accountant/ Bookkeeper p", "Other £", "Other p")
   colnames(x) <- column_names
 
+
   structure(
-    list(
-      df = x
-      ),
+    data.frame(x),
     class= "compliance_data"
-  )
+    )
 
 }
