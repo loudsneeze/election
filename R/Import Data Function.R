@@ -66,17 +66,39 @@ compliance_data <- function(x, log_level= futile.logger::WARN, log_appender= "co
 
   futile.logger::flog.info("...passed")
 
-  #Statistical test using assertr, currently not implmented
+  # Statistical test using assertr, currently not implmented
 
-  #plot argument allows the user to have a look at the data
 
-  if (plot == TRUE) {
-    plot(x[, 2])
-  }
+  # Add column Names
 
   column_names= c("Reference Number", "Attachments", "Admin/ secretarial", "Managers/ senior officials", "Directors/ chief executives", "Associate Professional", "Professional", "Other", "Other (please specify)", "Total time taken to complete Hours", "Total time taken to complete Mins", "External Costs Y", "External Costs False", "Accountant/ Bookkeeper", "Other", "Other (please specify)", "Accountant/ Bookkeeper £", "Accountant/ Bookkeeper p", "Other £", "Other p")
   colnames(x) <- column_names
 
+  # Create a column of total minutes to be used to check distrubtion and caculate median time
+
+  x$'Total time taken to complete Hours'[is.na(x$'Total time taken to complete Hours')] <- 0
+  x$'Total time taken to complete Mins'[is.na(x$'Total time taken to complete Mins')] <- 0
+  x$Total_Minutes <- x$'Total time taken to complete Hours'*60 + x$'Total time taken to complete Mins'
+
+ #plot argument allows the user to have a look at the data
+
+  if (plot == TRUE) {
+    hist(x$'Total_Minutes',
+         xlab = "Minutes taken to complete survey",
+         main = "Distribution of Minutes",
+         col = "plum")
+
+    abline(v= median(x$Total_Minutes), col= "deeppink", lwd = 4)
+
+    abline(v= mean(x$Total_Minutes), col= "darkmagenta", lwd=4)
+
+    abline(v= 2*sd(x$Total_Minutes), col = "blueviolet", lwd = 4)
+
+    legend(x= "topright",
+           legend= c("Median", "Mean", "2 Standard Deviations"),
+           col = c("deeppink", "darkmagenta", "blueviolet"),
+           lwd = 2)
+  }
 
   structure(
     data.frame(x),
